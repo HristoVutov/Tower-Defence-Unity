@@ -1,8 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Unit : MonoBehaviour {
     //TODO: Create abstract
+
+    //TODO: FIX 
+    public List<GameObject> projectilesList;
 
     [Range(1,10000)]
     public float Healt = 100;
@@ -13,9 +17,13 @@ public class Unit : MonoBehaviour {
         {
             var projectileDamage = col.gameObject.GetComponent<Projectile>().damage;
             this.Healt -= projectileDamage;
-            if(this.Healt < 0)
+            Debug.Log("Hitted");
+            if (this.Healt < 0)
             {
-
+                foreach (var projectile in projectilesList)
+                {
+                    Destroy(projectile);
+                }
                 Destroy(gameObject); 
             }
             Destroy(col.gameObject, 0.1f);
@@ -24,8 +32,8 @@ public class Unit : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-	
-	}
+	    projectilesList = new List<GameObject>();
+    }
 	
 	// Update is called once per frame
 	void Update () {

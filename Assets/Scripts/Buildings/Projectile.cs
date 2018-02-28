@@ -14,14 +14,7 @@ public class Projectile : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
-
-        //Destoy arrow gameObject if target is dead
-        if(target == null)
-        {
-            Destroy(gameObject);
-        }
-
+	void Update () {       
         //TODO: Fix arrow LookAt();
         var lookDir = target.position - transform.position;
         lookDir.y = 0f;
@@ -35,5 +28,8 @@ public class Projectile : MonoBehaviour {
         this.target = target;
         this.arrowSpeed = arrowSpeed;
         this.damage = damage;
+
+        //Add current gameObject to target list of projectiles following it
+        target.GetComponent<Unit>().projectilesList.Add(gameObject);
     }
 }
